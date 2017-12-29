@@ -1,4 +1,4 @@
-# Foosball
+# Foosball LED Lights
 Python code for motion sensor activated led lights on a Foosball table
 
 This code is for a raspberry pi running raspbian.
