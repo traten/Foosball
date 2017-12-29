@@ -18,5 +18,4 @@ The wiring for both were done on the same breadboard, no need to edit either one
  http://abyz.me.uk/rpi/pigpio/download.html
   
  Running the program:
- open terminal and type: sudo pigpiod //this will start the pigpio deamon
- then you are able to run your program
+ open terminal and type: sudo pigpiod //this will start the pigpio deamon. You are now able to run your program
