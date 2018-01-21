@@ -203,9 +203,9 @@ def fadeColor(redMax,greenMax,blueMax):
             gB+=1;
         if(bB < blueMax):
             bB+=1;
-        time.sleep(.03);
+        time.sleep(.02);
         if(rB == redMax and gB == greenMax and bB == blueMax):
-            time.sleep(2);
+            time.sleep(3);
     while(rB != 0 or gB != 0 or bB != 0):
         if(rB > 0):
             rB-=1;
@@ -216,7 +216,7 @@ def fadeColor(redMax,greenMax,blueMax):
         pi.set_PWM_dutycycle(redLight, rB);
         pi.set_PWM_dutycycle(greenLight, gB);
         pi.set_PWM_dutycycle(blueLight, bB);
-        time.sleep(.02);
+        time.sleep(.01);
 
 #========fadeColorGame()==========
 #fades Color that allows for motion sensor disruptance that will cancle the fade
@@ -285,6 +285,16 @@ def fade():
         fadeColor(250,70,22);
         #fade for gatorBlue
         fadeColor(0,33,165);
+
+#=======stationary()========
+def stationary():
+    menu();
+    userInput = input("Enter the number of the Color you want: ");
+    while True:
+        colorPicker(userInput);
+        exit == input("type exit to quit: ");
+        if(exit == "exit"):
+            break;
 
 #=======motionInterupt()=======
 #function that returns true if either of the motion sensors go off
@@ -474,18 +484,22 @@ try:
             print("(1)Foosball Game");
             print("(2)Foosball Game Lite"); #quicker motion sensors, no score and no winning lights
             print("(3)Fade");
-            userSelction = int(input("Selction: "));
+            print("(4)Solid Color");
+            userSelection = int(input("Selction: "));
         except ValueError:
-            print("Invalid input select 1,2, or 3");
+            print("Invalid input select 1,2,3, or 4");
             continue
         else:
-            if(userSelction == 1):
+            if(userSelection == 1):
                 gameMode();
-            if(userSelction == 2):
+            if(userSelection == 2):
                 gameModeLite();
-            if(userSelction == 3):
+            if(userSelection == 3):
                 print("Fade Started")
                 fade();
+            if(userSelection == 4):
+                print("Solid Color Started")
+                stationary();
 finally:
     #turn all lights off upon exiting program
     black();
