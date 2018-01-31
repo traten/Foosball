@@ -431,7 +431,7 @@ def gameMode():
                     time.sleep(5); #give the user time to take the ball out of the goal without setting off the motion sensor
                 count+=1; #update count to check for sleep mode
 
-#=======gameModeLite()=======
+#=======gameModeLite()=======``
 #runs game mode that has less features than regurlar game mode
 #doesn't allow for score keeping, user input, or special lights upon winning
 #this in theory will streamline speed for motion sensors to provide for more accurate readings
@@ -452,11 +452,11 @@ def gameModeLite():
             elif i==1: #motionSensorWhite ON
                 count = 0;
                 for x in range(0,blinkTime):
-                    colorPicker(6);
+                    colorPicker("6");
                     time.sleep(.05);
                     black();
                     time.sleep(.05);
-                colorPicker(6); #CHANGE PLAYER COLOR HERE
+                colorPicker("6"); #CHANGE PLAYER COLOR HERE
                 time.sleep(solidTime);
                 black();
                 time.sleep(.05);
@@ -466,11 +466,11 @@ def gameModeLite():
             elif j==1: #motionSensorBlack ON
                 count = 0;
                 for x in range(0,blinkTime):
-                    colorPicker(11); #CHANGE PLAYER COLOR HERE
+                    colorPicker("11"); #CHANGE PLAYER COLOR HERE
                     time.sleep(.05);
                     black();
                     time.sleep(.05);
-                colorPicker(11);
+                colorPicker("11");
                 time.sleep(solidTime);
                 black();
                 time.sleep(.05);
