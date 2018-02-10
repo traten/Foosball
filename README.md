@@ -14,8 +14,8 @@ The wiring for both were done on the same breadboard, no need to edit either one
 
 
  The program will need to use the pigpio library for the LED lights.
- To download if your Raspberry Pi does not have pigpio (most should come preinstalled) follow these steps:
- http://abyz.me.uk/rpi/pigpio/download.html
+ To download if your Raspberry Pi does not have pigpio (most should come preinstalled) follow [these steps:]
+ (http://abyz.me.uk/rpi/pigpio/download.html)
   
  ### Running the program:
  Running the program requies that the pigpio deamon is running, to do this type `sudo pigpiod` this will start the pigpio deamon. You are now able to run your program.
