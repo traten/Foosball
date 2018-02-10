@@ -1,8 +1,9 @@
 # Foosball LED Lights
-Python code for motion sensor activated led lights on a Foosball table
+Python 3 code for motion sensor activated LED lights on a Foosball table
 
-This code is for a Raspberry Pi running raspbian.
+This code is for a Raspberry Pi 3 running raspbian.
 
+### Wiring
 Wiring was done with a breadboard and a raspberry pi 3.
 Wiring descriptions for the lights can be found [here](https://dordnung.de/raspberrypi-ledstrip/)
 
