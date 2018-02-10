@@ -17,5 +17,5 @@ The wiring for both were done on the same breadboard, no need to edit either one
  To download if your raspberry pi does not have pigpio (most should come preinstalled) follow these steps:
  http://abyz.me.uk/rpi/pigpio/download.html
   
- Running the program:
- open terminal and type: sudo pigpiod //this will start the pigpio deamon. You are now able to run your program
+ ## Running the program:
+ Running the program requies that the pigpio deamon is running, to do this on start up of the Raspberry pi, type `sudo pigpiod` this will start the pigpio deamon. You are now able to run your program.
