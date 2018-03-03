@@ -50,80 +50,51 @@ def black():
     pi.set_PWM_dutycycle(redLight, 0);
     pi.set_PWM_dutycycle(greenLight, 0);
     pi.set_PWM_dutycycle(blueLight, 0);
-
+#colorSet(r,g,b)
+#defines color taking in decimal number of each rgb code
+def colorSet(r,g,b):
+    pi.set_PWM_dutycycle(redLight, r);
+    pi.set_PWM_dutycycle(greenLight, g);
+    pi.set_PWM_dutycycle(blueLight, b);
 #========colorPicker()========
 #user based color selector
 #will define the RGB code of the color
 #pigpio daemon requires colors to be defined as such, making for a ton of lines to define colors
 def colorPicker(colNum):
     if(colNum == "1"): #red
-        pi.set_PWM_dutycycle(redLight, 255);
-        pi.set_PWM_dutycycle(greenLight, 0);
-        pi.set_PWM_dutycycle(blueLight, 0);
+        colorSet(255,0,0);
     elif(colNum == "2"): #blue
-        pi.set_PWM_dutycycle(redLight, 0);
-        pi.set_PWM_dutycycle(greenLight, 0);
-        pi.set_PWM_dutycycle(blueLight, 255);
+        colorSet(0,0,255);
     elif(colNum == "3"): #green
-        pi.set_PWM_dutycycle(redLight, 0);
-        pi.set_PWM_dutycycle(greenLight, 255);
-        pi.set_PWM_dutycycle(blueLight, 0);
+        colorSet(0,255,0);
     elif(colNum == "4"): #purple
-        pi.set_PWM_dutycycle(redLight, 160);
-        pi.set_PWM_dutycycle(greenLight, 32);
-        pi.set_PWM_dutycycle(blueLight, 240);
+        colorSet(160,32,240);
     elif(colNum == "5"): #Ultramirine Blue
-        pi.set_PWM_dutycycle(redLight, 72);
-        pi.set_PWM_dutycycle(greenLight, 117);
-        pi.set_PWM_dutycycle(blueLight, 240);
+        colorSet(72,117,240);
     elif(colNum == "6"): #Neon Green
-        pi.set_PWM_dutycycle(redLight, 43);
-        pi.set_PWM_dutycycle(greenLight, 240);
-        pi.set_PWM_dutycycle(blueLight, 36);
+        colorSet(43,240,36);
     elif(colNum == "7"): #Pear
-        pi.set_PWM_dutycycle(redLight, 220);
-        pi.set_PWM_dutycycle(greenLight, 240);
-        pi.set_PWM_dutycycle(blueLight, 36);
+        colorSet(220,240,36);
     elif(colNum == "8"): #Lavender Indigo
-        pi.set_PWM_dutycycle(redLight, 183);
-        pi.set_PWM_dutycycle(greenLight, 74);
-        pi.set_PWM_dutycycle(blueLight, 255);
-    elif(colNum == "9"): #cerise Pinke
-        pi.set_PWM_dutycycle(redLight, 255);
-        pi.set_PWM_dutycycle(greenLight, 48);
-        pi.set_PWM_dutycycle(blueLight, 131);
+        colorSet(183,74,255);
+    elif(colNum == "9"): #cerise Pink
+        colorSet(255,48,131);
     elif(colNum == "10"): #coral Red
-        pi.set_PWM_dutycycle(redLight, 255);
-        pi.set_PWM_dutycycle(greenLight, 51);
-        pi.set_PWM_dutycycle(blueLight, 71);
+        colorSet(255,51,71);
     elif(colNum == "11"): #electric blueLight
-        pi.set_PWM_dutycycle(redLight, 79);
-        pi.set_PWM_dutycycle(greenLight, 255);
-        pi.set_PWM_dutycycle(blueLight, 249);
+        colorSet(79,255,249);
     elif(colNum == "12"): #gator orange
-        pi.set_PWM_dutycycle(redLight, 255);
-        pi.set_PWM_dutycycle(greenLight, 100);
-        pi.set_PWM_dutycycle(blueLight, 0);
+        colorSet(255,100,0);
     elif(colNum == "13"): #gator blue
-        pi.set_PWM_dutycycle(redLight, 0);
-        pi.set_PWM_dutycycle(greenLight, 33);
-        pi.set_PWM_dutycycle(blueLight, 165);
+        colorSet(0,33,165);
     if(colNum == "14"): #Police Lights
-        pi.set_PWM_dutycycle(redLight, 255);
-        pi.set_PWM_dutycycle(greenLight, 0);
-        pi.set_PWM_dutycycle(blueLight, 0);
+        colorSet(255,0,0);
         time.sleep(.08);
-        pi.set_PWM_dutycycle(redLight, 0);
-        pi.set_PWM_dutycycle(greenLight, 0);
-        pi.set_PWM_dutycycle(blueLight, 255);
+        colorSet(0,0,255);
     if(colNum == "15"): #Gator Falshing
-        pi.set_PWM_dutycycle(redLight, 255);
-        pi.set_PWM_dutycycle(greenLight, 100);
-        pi.set_PWM_dutycycle(blueLight, 0);
+        colorSet(255,100,0);
         time.sleep(.08);
-        pi.set_PWM_dutycycle(redLight, 79);
-        pi.set_PWM_dutycycle(greenLight, 255);
-        pi.set_PWM_dutycycle(blueLight, 249);
+        colorSet(79,255,249);
 
 #======menu()========
 #menu for colors
@@ -148,13 +119,9 @@ def menu():
 #helper method for the strobe function
 def strobeColor(red,green,blue):
     for x in range(0,10):
-        pi.set_PWM_dutycycle(redLight, red);
-        pi.set_PWM_dutycycle(greenLight, green);
-        pi.set_PWM_dutycycle(blueLight, blue);
+        colorSet(red,green,blue);
         time.sleep(.05)
-        pi.set_PWM_dutycycle(redLight, 0);
-        pi.set_PWM_dutycycle(greenLight, 0);
-        pi.set_PWM_dutycycle(blueLight, 0);
+        colorSet(0,0,0);
         time.sleep(.05)
 
 #======strobe()======
@@ -195,9 +162,7 @@ def fadeColor(redMax,greenMax,blueMax):
     global gB;
     global bB;
     while(rB != redMax or gB != greenMax or bB != blueMax):
-        pi.set_PWM_dutycycle(redLight, rB);
-        pi.set_PWM_dutycycle(greenLight, gB);
-        pi.set_PWM_dutycycle(blueLight, bB);
+        colorSet(rB,gB,bB);
         if(rB < redMax):
             rB+=1;
         if(gB < greenMax):
@@ -214,9 +179,7 @@ def fadeColor(redMax,greenMax,blueMax):
             gB-=1;
         if(bB > 0):
             bB-=1;
-        pi.set_PWM_dutycycle(redLight, rB);
-        pi.set_PWM_dutycycle(greenLight, gB);
-        pi.set_PWM_dutycycle(blueLight, bB);
+        colorSet(rB,gB,bB);
         time.sleep(.01);
 
 #========fadeColorGame()==========
@@ -229,9 +192,7 @@ def fadeColorGame(redMax,greenMax,blueMax):
         if(motionInterupt() == True):
             return False;
         else:
-            pi.set_PWM_dutycycle(redLight, rB);
-            pi.set_PWM_dutycycle(greenLight, gB);
-            pi.set_PWM_dutycycle(blueLight, bB);
+            colorSet(rB,gB,bB);
             if(rB < redMax):
                 rB+=1;
             if(gB < greenMax):
@@ -251,9 +212,7 @@ def fadeColorGame(redMax,greenMax,blueMax):
                 gB-=1;
             if(bB > 0):
                 bB-=1;
-            pi.set_PWM_dutycycle(redLight, rB);
-            pi.set_PWM_dutycycle(greenLight, gB);
-            pi.set_PWM_dutycycle(blueLight, bB);
+            colorSet(rB,gB,bB);
             time.sleep(.02);
 
 #===========fade()========
