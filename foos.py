@@ -57,6 +57,7 @@ def colorSet(r,g,b):
     pi.set_PWM_dutycycle(redLight, r);
     pi.set_PWM_dutycycle(greenLight, g);
     pi.set_PWM_dutycycle(blueLight, b);
+    
 #========colorPicker()========
 #user based color selector
 #will define the RGB code of the color
@@ -76,42 +77,6 @@ def colorPicker(colNum):
                 selColor = colorList[x+2];
         print(selColor);
         return selColor;
-
-# def colorPicker(colNum):
-#     if(colNum == "1"): #red
-#         colorSet(255,0,0);
-#     elif(colNum == "2"): #blue
-#         colorSet(0,0,255);
-#     elif(colNum == "3"): #green
-#         colorSet(0,255,0);
-#     elif(colNum == "4"): #purple
-#         colorSet(160,32,240);
-#     elif(colNum == "5"): #Ultramirine Blue
-#         colorSet(72,117,240);
-#     elif(colNum == "6"): #Neon Green
-#         colorSet(43,240,36);
-#     elif(colNum == "7"): #Pear
-#         colorSet(220,240,36);
-#     elif(colNum == "8"): #Lavender Indigo
-#         colorSet(183,74,255);
-#     elif(colNum == "9"): #cerise Pink
-#         colorSet(255,48,131);
-#     elif(colNum == "10"): #coral Red
-#         colorSet(255,51,71);
-#     elif(colNum == "11"): #electric blueLight
-#         colorSet(79,255,249);
-#     elif(colNum == "12"): #gator orange
-#         colorSet(255,100,0);
-#     elif(colNum == "13"): #gator blue
-#         colorSet(0,33,165);
-#     if(colNum == "14"): #Police Lights
-#         colorSet(255,0,0);
-#         time.sleep(.08);
-#         colorSet(0,0,255);
-#     if(colNum == "15"): #Gator Falshing
-#         colorSet(255,100,0);
-#         time.sleep(.08);
-#         colorSet(79,255,249);
 
 #========updateDataBase()========
 #updates database based on new entries
@@ -154,22 +119,6 @@ def menu():
             line = line.rstrip('\n')
             print("({}): " .format(i) + line);
             i += 1;
-
-    # print("(1): RED");
-    # print("(2): BLUE");
-    # print("(3): GREEN");
-    # print("(4): PURPLE");
-    # print("(5): ULTRAMARINE BlUE");
-    # print("(6): NEON GREEN");
-    # print("(7): PEAR");
-    # print("(8): LAVENDER INDIGO");
-    # print("(9): CERISE PINK");
-    # print("(10): CORAL RED");
-    # print("(11): ELECTRIC BLUE");
-    # print("(12): GATOR ORANGE");
-    # print("(13): GATOR BLUE");
-    # print("(14): POLICE LIGHTS");
-    # print("(15): GATOR FLASHING");
 
 #==========strobeColor()=============
 #helper method for the strobe function
