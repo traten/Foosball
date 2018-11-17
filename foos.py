@@ -50,6 +50,7 @@ def black():
     pi.set_PWM_dutycycle(redLight, 0);
     pi.set_PWM_dutycycle(greenLight, 0);
     pi.set_PWM_dutycycle(blueLight, 0);
+
 #colorSet(r,g,b)
 #defines color taking in decimal number of each rgb code
 def colorSet(r,g,b):
@@ -61,59 +62,114 @@ def colorSet(r,g,b):
 #will define the RGB code of the color
 #pigpio daemon requires colors to be defined as such, making for a ton of lines to define colors
 def colorPicker(colNum):
-    if(colNum == "1"): #red
-        colorSet(255,0,0);
-    elif(colNum == "2"): #blue
-        colorSet(0,0,255);
-    elif(colNum == "3"): #green
-        colorSet(0,255,0);
-    elif(colNum == "4"): #purple
-        colorSet(160,32,240);
-    elif(colNum == "5"): #Ultramirine Blue
-        colorSet(72,117,240);
-    elif(colNum == "6"): #Neon Green
-        colorSet(43,240,36);
-    elif(colNum == "7"): #Pear
-        colorSet(220,240,36);
-    elif(colNum == "8"): #Lavender Indigo
-        colorSet(183,74,255);
-    elif(colNum == "9"): #cerise Pink
-        colorSet(255,48,131);
-    elif(colNum == "10"): #coral Red
-        colorSet(255,51,71);
-    elif(colNum == "11"): #electric blueLight
-        colorSet(79,255,249);
-    elif(colNum == "12"): #gator orange
-        colorSet(255,100,0);
-    elif(colNum == "13"): #gator blue
-        colorSet(0,33,165);
-    if(colNum == "14"): #Police Lights
-        colorSet(255,0,0);
-        time.sleep(.08);
-        colorSet(0,0,255);
-    if(colNum == "15"): #Gator Falshing
-        colorSet(255,100,0);
-        time.sleep(.08);
-        colorSet(79,255,249);
+    if(colNum == "0"): #CUSTOM COLOR
+        return custColor();
+    else:
+        foosMenu = open("foosMenu.txt","r");
+        colorList = [];
+        for line in foosMenu:
+            colorList.append(line);
+        foosMenu.close();
+        colorList_Length = len(colorList);
+        for x in range(colorList_Length):
+            if(colorList[x] == '{}\n' .format(colNum)):
+                selColor = colorList[x+2];
+        print(selColor);
+        return selColor;
+
+# def colorPicker(colNum):
+#     if(colNum == "1"): #red
+#         colorSet(255,0,0);
+#     elif(colNum == "2"): #blue
+#         colorSet(0,0,255);
+#     elif(colNum == "3"): #green
+#         colorSet(0,255,0);
+#     elif(colNum == "4"): #purple
+#         colorSet(160,32,240);
+#     elif(colNum == "5"): #Ultramirine Blue
+#         colorSet(72,117,240);
+#     elif(colNum == "6"): #Neon Green
+#         colorSet(43,240,36);
+#     elif(colNum == "7"): #Pear
+#         colorSet(220,240,36);
+#     elif(colNum == "8"): #Lavender Indigo
+#         colorSet(183,74,255);
+#     elif(colNum == "9"): #cerise Pink
+#         colorSet(255,48,131);
+#     elif(colNum == "10"): #coral Red
+#         colorSet(255,51,71);
+#     elif(colNum == "11"): #electric blueLight
+#         colorSet(79,255,249);
+#     elif(colNum == "12"): #gator orange
+#         colorSet(255,100,0);
+#     elif(colNum == "13"): #gator blue
+#         colorSet(0,33,165);
+#     if(colNum == "14"): #Police Lights
+#         colorSet(255,0,0);
+#         time.sleep(.08);
+#         colorSet(0,0,255);
+#     if(colNum == "15"): #Gator Falshing
+#         colorSet(255,100,0);
+#         time.sleep(.08);
+#         colorSet(79,255,249);
+
+#========updateDataBase()========
+#updates database based on new entries
+def updateDataBase():
+    foosMenu = open("foosMenu.txt","r+");
+    numOfEntriesInDataBase = int(foosMenu.readline());
+    numOfEntriesInDataBase += 1;
+    data = foosMenu.readlines();
+    data[0] = '{}\n'.format(numOfEntriesInDataBase);
+    foosMenu.close();
+    foosMenu = open("foosMenu.txt","r+");
+    for x in range(len(data)):
+        foosMenu.write('{}' .format(data[x]));
+    foosMenu.close();
+    return numOfEntriesInDataBase
+
+#======cust_color=======
+#User inputed RGB values
+def custColor():
+    colorValueR = (input("Enter Red Value: "));
+    colorValueG = (input("Enter Green Value: "));
+    colorValueB = (input("Enter Blue Value: "));
+    colorName = (input("Enter color Name: "));
+    numOfEntriesInDataBase = updateDataBase(); #update the database to hold new color combo
+    foosMenu = open("foosMenu.txt","a");
+    foosMenu.write('{}\n'.format(numOfEntriesInDataBase))
+    foosMenu.write('{}\n'.format(colorName));
+    foosMenu.write('{}\n'.format(colorValueR + ' ' + colorValueG + ' ' + colorValueB));
+    foosMenu.close();
+    colorSelection = colorValueR + ' ' + colorValueG + ' ' + colorValueB;
+    return colorSelection;
 
 #======menu()========
 #menu for colors
 def menu():
-    print("(1): RED");
-    print("(2): BLUE");
-    print("(3): GREEN");
-    print("(4): PURPLE");
-    print("(5): ULTRAMARINE BlUE");
-    print("(6): NEON GREEN");
-    print("(7): PEAR");
-    print("(8): LAVENDER INDIGO");
-    print("(9): CERISE PINK");
-    print("(10): CORAL RED");
-    print("(11): ELECTRIC BLUE");
-    print("(12): GATOR ORANGE");
-    print("(13): GATOR BLUE");
-    print("(14): POLICE LIGHTS");
-    print("(15): GATOR FLASHING");
+    foosMenu = open("foosMenu.txt", "r");
+    i = 0;
+    for j,line in enumerate(foosMenu,start=0):
+        if j % 3 == 2:
+            line = line.rstrip('\n')
+            print("({}): " .format(i) + line);
+            i += 1;
+
+    # print("(1): RED");
+    # print("(2): BLUE");
+    # print("(3): GREEN");
+    # print("(4): PURPLE");
+    # print("(5): ULTRAMARINE BlUE");
+    # print("(6): NEON GREEN");
+    # print("(7): PEAR");
+    # print("(8): LAVENDER INDIGO");
+    # print("(9): CERISE PINK");
+    # print("(10): CORAL RED");
+    # print("(11): ELECTRIC BLUE");
+    # print("(12): GATOR ORANGE");
+    # print("(13): GATOR BLUE");
+    # print("(14): POLICE LIGHTS");
+    # print("(15): GATOR FLASHING");
 
 #==========strobeColor()=============
 #helper method for the strobe function
@@ -326,8 +382,10 @@ def gameMode():
         player1 = input("Enter Player One's Name (White): ");
         menu();
         player1Col = input('Enter {}\'s Color (number from menu): '.format(player1)); #ask for player1s color
+        PlayerOneColor = colorPicker(player1Col).split(); #split player ones color into rgb values
         player2 = input("Enter Player Two's Name (Black): ");
         player2Col = input('Enter {}\'s (number from menu): ' .format(player2)); #ask for player 2s color
+        PlayerTwoColor = colorPicker(player2Col).split(); #split player ones color into rgb values
         print("******Game Started******");
         print('{}\'s SCORE: {}'.format(player1,whiteScore));
         print('{}\'s SCORE: {}'.format(player2,blackScore));
@@ -440,6 +498,7 @@ def gameModeLite():
 #list of options for program
 #This screen prompts you upon opening up application
 try:
+    strobeColor(255, 0, 0) #Red strobe to alert players game is back on
     print("\n");
     print("*************************");
     print("WELCOME TO FOOSBALL LEDS:");
