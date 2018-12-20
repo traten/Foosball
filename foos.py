@@ -57,11 +57,10 @@ def colorSet(r,g,b):
     pi.set_PWM_dutycycle(redLight, r);
     pi.set_PWM_dutycycle(greenLight, g);
     pi.set_PWM_dutycycle(blueLight, b);
-    
+
 #========colorPicker()========
 #user based color selector
 #will define the RGB code of the color
-#pigpio daemon requires colors to be defined as such, making for a ton of lines to define colors
 def colorPicker(colNum):
     if(colNum == "0"): #CUSTOM COLOR
         return custColor();
@@ -73,7 +72,7 @@ def colorPicker(colNum):
         foosMenu.close();
         colorList_Length = len(colorList);
         for x in range(colorList_Length):
-            if(colorList[x] == '{}\n' .format(colNum)):
+            if(colorList[x] == '{}\n'.format(colNum)):
                 selColor = colorList[x+2];
         print(selColor);
         return selColor;
@@ -114,7 +113,7 @@ def custColor():
 def menu():
     foosMenu = open("foosMenu.txt", "r");
     i = 0;
-    for j,line in enumerate(foosMenu,start=0):
+    for j, line in enumerate(foosMenu, start=0):
         if j % 3 == 2:
             line = line.rstrip('\n')
             print("({}): " .format(i) + line);
@@ -257,7 +256,8 @@ def SolidColor():
     menu();
     userInput = input("Enter the number of the Color you want: "); #solid color that will be displayed
     while True:
-        colorPicker(userInput);
+        solidColor = colorPicker(userInput).split();
+        colorSet(solidColor[0], solidColor[1], solidColor[2])
         exit = input('type exit to return to menu: ');
         print(exit);
         if(exit == "exit"):
