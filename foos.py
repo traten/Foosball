@@ -58,6 +58,16 @@ def colorSet(r,g,b):
     pi.set_PWM_dutycycle(greenLight, g);
     pi.set_PWM_dutycycle(blueLight, b);
 
+#======colorList()=========
+#returns the color list from Database
+def colorList():
+    foosMenu = open("foosMenu.txt","r");
+    colorList = [];
+    for line in foosMenu:
+        colorList.append(line);
+    foosMenu.close();
+    return colorList;
+
 #========colorPicker()========
 #user based color selector
 #will define the RGB code of the color
@@ -65,16 +75,11 @@ def colorPicker(colNum):
     if(colNum == "0"): #CUSTOM COLOR
         return custColor();
     else:
-        foosMenu = open("foosMenu.txt","r");
-        colorList = [];
-        for line in foosMenu:
-            colorList.append(line);
-        foosMenu.close();
-        colorList_Length = len(colorList);
+        colorListPicker = colorList();
+        colorList_Length = len(colorListPicker);
         for x in range(colorList_Length):
-            if(colorList[x] == '{}\n'.format(colNum)):
-                selColor = colorList[x+2];
-        print(selColor);
+            if(colorListPicker[x] == '{}\n'.format(colNum)):
+                selColor = colorListPicker[x+2];
         return selColor;
 
 #========updateDataBase()========
@@ -223,32 +228,11 @@ def fadeColorGame(redMax,greenMax,blueMax):
 #fades the colors listed below
 def fade():
     while True:
-        #fade for red
-        fadeColor(255,0,0);
-        #fade for blue
-        fadeColor(0,0,255);
-        #fade for green
-        fadeColor(0,255,0);
-        #fade for purple
-        fadeColor(160,32,240);
-        #fade for ultramarineBlue
-        fadeColor(72,117,240);
-        #fade for neonGreen
-        fadeColor(43,240,36);
-        #fade for pear
-        fadeColor(220,240,36);
-        #fade for lavIndigo
-        fadeColor(183,74,255);
-        #fade for cerisePink
-        fadeColor(255,48,131);
-        #fade for coralRed
-        fadeColor(255,51,71);
-        #fade for electricBlue
-        fadeColor(79,255,249);
-        #fade for gatorOrange
-        fadeColor(250,70,22);
-        #fade for gatorBlue
-        fadeColor(0,33,165);
+        colorListFade = colorList();
+        colorList_Length = len(colorListFade);
+        for x in range(colorList_Length):
+            fadeColorArray = colorPicker(x + 1).split();
+            fadeColor(int(fadeColorArray[0]), int(fadeColorArray[1]), int(fadeColorArray[2]));
 
 #=======SolidColor()========
 #displays a solid color until exit is typed or program is termninated
